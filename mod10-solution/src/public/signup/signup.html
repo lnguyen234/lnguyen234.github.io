@@ -35,12 +35,14 @@
             </div>
             <div class="form-group">
                 <label for="favoriteDish">Favorite Dish</label>
-                <input class="form-control" type="text" name="favoriteDish" ng-model="signupCtrl.user.favoriteDish" minlength="2" maxlength="2"/>
-                <span ng-if="signupForm.favoriteDish.$invalid && (signupForm.$submitted || signupForm.favoriteDish.$touched)" style="color: red;">Menu Item must be 2 characters</span>
-                <span ng-if="signupCtrl.showError" style="color: red;">No such menu number exists</span>
+                <input class="form-control" type="text" name="favoriteDish" ng-model="signupCtrl.user.favoriteDish"  ng-change="signupCtrl.validateFavoriteDish()"/>
+                <!-- <span ng-if="signupForm.favoriteDish.$invalid && (signupForm.$submitted || signupForm.favoriteDish.$touched)" style="color: red;">Menu Item must be 2 characters</span> -->
+                <span ng-if="signupCtrl.showNotFound" style="color: red;">No such menu number exists</span>
+                <span ng-if="signupCtrl.showFound" style="color: green;">Menu item found</span>
             </div>
             <input type="submit" class="btn btn-default" value="Signup" />
-            <span class="text-success" ng-if="signupCtrl.showMessage">Your information has been saved</span>
+            <span ng-if="signupCtrl.showError" style="color: red;">The form is not valid</span>
+            <span ng-if="signupCtrl.showSuccess" style="color: green;">Your information has been saved</span>
         </form>
     </div>
 

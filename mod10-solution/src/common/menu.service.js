@@ -37,7 +37,10 @@
     };
 
     service.getFavoriteDish = function (short_name) {
-      if ((typeof short_name === 'string') && (short_name.length == 2)) {
+      if (typeof short_name === 'string') {
+        if (short_name.length != 2) {
+          return null;
+        }
         var categoryLetter = short_name.charAt(0).toUpperCase();
         var itemNumber = parseInt(short_name.charAt(1)) - 1;
         var url = ApiPath + '/menu_items/' + categoryLetter + '/menu_items/' + itemNumber + '.json';
