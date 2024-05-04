@@ -17,30 +17,11 @@
         $ctrl.showSuccess = false;
 
         $ctrl.signup = function (form) {
-            if (form.$invalid) {
+            if (form.$invalid || $ctrl.showNotFound) {
                 $ctrl.showError = true;
                 $ctrl.showSuccess = false;
                 return;
-            }
-            
-            var favoriteDishShortName = String($ctrl.user.favoriteDish);
-            if (favoriteDishShortName.length != 2) {
-                $ctrl.showError = true;
-                $ctrl.showSuccess = false;
-                return;
-            }
-            // MenuService.getFavoriteDish(favoriteDishShortName).then(function (response) {
-            //     if (response) {
-            //         $ctrl.user.favoriteDishDetails = response;
-            //         // console.log($ctrl.favoriteDish);
-            //         MenuService.saveUser($ctrl.user);
-            //         $ctrl.showMessage = true;
-            //     } else {
-            //         $ctrl.showError = true;
-            //     }
-            // });
-
-            if ($ctrl.showFound) {
+            } else {
                 MenuService.saveUser($ctrl.user);
                 $ctrl.showSuccess = true;
                 $ctrl.showError = false;
@@ -50,12 +31,23 @@
 
         $ctrl.validateFavoriteDish = function () {
             var favoriteDishShortName = String($ctrl.user.favoriteDish);
-            if (favoriteDishShortName.length != 2) {
+            // if (favoriteDishShortName.length < 2) {
+            //     $ctrl.showNotFound = true;
+            //     $ctrl.showFound = false;
+            //     return;
+            // }
+            var charPatt = /[a-zA-Z]+/g;
+            var categoryLetter = favoriteDishShortName.match(charPatt);
+            var numPatt = /[0-9]+/g;
+            var itemNumber = favoriteDishShortName.match(numPatt);
+            if (!categoryLetter || !itemNumber || (categoryLetter.length != 1) || (itemNumber.length != 1)) {
                 $ctrl.showNotFound = true;
                 $ctrl.showFound = false;
                 return;
             }
-            MenuService.getFavoriteDish(favoriteDishShortName).then(function (response) {
+            categoryLetter = categoryLetter[0].toUpperCase();
+            itemNumber = parseInt(itemNumber[0]) - 1;
+            MenuService.getFavoriteDish(categoryLetter, itemNumber).then(function (response) {
                 if (response) {
                     $ctrl.user.favoriteDishDetails = response;
                     $ctrl.showFound = true;

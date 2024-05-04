@@ -5,9 +5,12 @@
             <p>Last Name: {{infoCtrl.user.lastName}}</p>
             <p>Email: {{infoCtrl.user.email}}</p>
             <p>Phone: {{infoCtrl.user.phone}}</p>
-            <p>Favorite Dish: {{infoCtrl.user.favoriteDishDetails.name}}</p>
+            <p>Favorite Dish: {{infoCtrl.user.favoriteDishDetails.short_name}} - {{infoCtrl.user.favoriteDishDetails.name}}</p>
             <p>Description: {{infoCtrl.user.favoriteDishDetails.description}}</p>
+            <img class="img-responsive" ng-src="images/menu/{{infoCtrl.user.favoriteDishDetails.categoryLetter}}/{{infoCtrl.user.favoriteDishDetails.short_name}}.jpg" alt="{{infoCtrl.user.favoriteDishDetails.name}}" />
+
         </div>
+
         <div ng-hide="infoCtrl.existedUser">
             <h3>Not Signed Up Yet. <a ui-sref="public.signup">Signup now!</a></h3>
         </div>

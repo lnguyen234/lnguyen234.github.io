@@ -13,9 +13,9 @@ describe('menuitem', function () {
     var url = ApiPath + '/menu_items/L/menu_items/0.json';
     // console.log(url);
     $httpBackend.whenGET(url).respond(['Orange Chicken']);
-    var short_name = 'L1';
+    // var short_name = 'L1';
 
-    MenuService.getFavoriteDish(short_name).then(function (response) {
+    MenuService.getFavoriteDish('L', '0').then(function (response) {
       expect(response).toEqual(['Orange Chicken']);
     });
     $httpBackend.flush();
