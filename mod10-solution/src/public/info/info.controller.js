@@ -16,7 +16,7 @@
             $ctrl.existedUser = false;
         } else {
             $ctrl.existedUser = true;
-            var charPatt = /[a-zA-Z]/g;
+            var charPatt = /[a-zA-Z]+/g;
             $ctrl.user.favoriteDishDetails.categoryLetter = $ctrl.user.favoriteDishDetails.short_name.match(charPatt)[0].toUpperCase();
         }
     }
