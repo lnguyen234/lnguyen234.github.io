@@ -51,6 +51,8 @@
         $ctrl.validateFavoriteDish = function () {
             var favoriteDishShortName = String($ctrl.user.favoriteDish);
             if (favoriteDishShortName.length != 2) {
+                $ctrl.showNotFound = true;
+                $ctrl.showFound = false;
                 return;
             }
             MenuService.getFavoriteDish(favoriteDishShortName).then(function (response) {
